@@ -9,7 +9,8 @@
 using namespace std;
 
 int main() {
-    Lexer lexer("D:\\CLionProjects\\Lexer\\example");
+    Lexer lexer("D:\\CLionProjects\\Compiler\\Lexer\\example");
+    //Don't forget to change the path
     vector<Token> v = lexer.lex();
     for (auto &i : v) {
         cout << "< " << i.word << " , " << i.code << " >" << endl;
