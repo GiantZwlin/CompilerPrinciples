@@ -29,7 +29,6 @@ private:
 
     char getChar() {
         char c;
-
         if (File.peek() != EOF) {
             File >> std::noskipws >> c;
             return c;
@@ -48,7 +47,6 @@ public:
         File.open(filePath);
         std::vector<Token> result;
         char c = getChar();
-        int w = 10;
         while (c != '\0') {
             if (LexUtils::isSpare(c)) {
                 c = getChar();
