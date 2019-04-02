@@ -1,5 +1,3 @@
-//#include <utility>
-
 //
 // Created by Zwlin on 2019/4/2 0002.
 //
@@ -48,7 +46,6 @@ public:
 
     std::vector<Token> lex() {
         File.open(filePath);
-//        TODO:加异常捕获
         std::vector<Token> result;
         char c = getChar();
         int w = 10;
