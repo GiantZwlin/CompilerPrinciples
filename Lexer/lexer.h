@@ -25,6 +25,7 @@ class Lexer {
 private:
     std::string filePath;
     std::ifstream File;
+    bool noting;
     InnerCode codeTable;
 
     char getChar() {
@@ -41,6 +42,24 @@ public:
     explicit Lexer(std::string _file) {
         filePath = std::move(_file);
         codeTable = InnerCode();
+        noting = false;
+    }
+
+    void add_to_table(std::vector<Token> &v, Token token) {
+        if (!noting && !codeTable.isNotes(token.code)) {
+            v.push_back(token);
+        }
+    }
+
+    void deal_notes(int code) {
+        if (code == codeTable.getInnerCode("//")) {
+            char c = getChar();
+            while (c != '\n') {
+                c = getChar();
+            }
+        } else if(codeTable.isNotes(code)){
+            noting = !noting;
+        }
     }
 
     std::vector<Token> lex() {
@@ -62,7 +81,7 @@ public:
                 }
                 int code = codeTable.getInnerCode(LexUtils::toUpper(tmp));
                 Token token = Token(tmp, code);
-                result.push_back(token);
+                add_to_table(result, token);
             } else {
                 if (isdigit(c)) {
                     std::string tmp;
@@ -72,7 +91,7 @@ public:
                     }
                     int code = codeTable.getInnerCode("UNSIGNED");
                     Token token = Token(tmp, code);
-                    result.push_back(token);
+                    add_to_table(result, token);
                 } else {
                     if (codeTable.isDoubleChar(c)) {
                         std::string tmp;
@@ -80,22 +99,25 @@ public:
                         c = getChar();
                         std::string t_tmp = tmp + c;
                         int code = codeTable.getInnerCode(t_tmp);
+                        deal_notes(code);
                         if (code != -1) {
                             tmp = t_tmp;
                             Token token = Token(tmp, code);
-                            result.push_back(token);
+                            add_to_table(result, token);
                             c = getChar();
                         } else {
                             code = codeTable.getInnerCode(tmp);
+                            deal_notes(code);
                             Token token = Token(tmp, code);
-                            result.push_back(token);
+                            add_to_table(result, token);
                         }
                     } else {
                         std::string tmp;
                         tmp += c;
                         int code = codeTable.getInnerCode(tmp);
+                        deal_notes(code);
                         Token token = Token(tmp, code);
-                        result.push_back(token);
+                        add_to_table(result, token);
                         c = getChar();
                     }
                 }

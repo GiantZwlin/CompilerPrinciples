@@ -49,10 +49,15 @@ public:
         codeTable["UNSIGNED"] = 33;
         codeTable["IDENTIFIER"] = 34;
         codeTable["#"] = 35;
+        codeTable["//"] = 36;
+        codeTable["{"] = 37;
+        codeTable["}"] = 38;
+        codeTable["(*"] = 39;
+        codeTable["*)"] = 40;
 
     }
 
-    int getInnerCode(const std::string& word) {
+    int getInnerCode(const std::string &word) {
         if (codeTable[word] == 0) {
             for (char i : word) {
                 if (!isalpha(i)) {
@@ -69,7 +74,20 @@ public:
         std::string cc;
         cc += c;
         int code = getInnerCode(cc);
-        return code == getInnerCode("<") || code == getInnerCode(">") || code == getInnerCode(":");
+        return code == getInnerCode("<") ||
+               code == getInnerCode(">") ||
+               code == getInnerCode(":") ||
+               code == getInnerCode("*") ||
+               code == getInnerCode("/") ||
+               code == getInnerCode("(");
+    }
+
+    bool isNotes(int code) {
+        return code == getInnerCode("//") ||
+               code == getInnerCode("(*") ||
+               code == getInnerCode("*)") ||
+               code == getInnerCode("{") ||
+               code == getInnerCode("}");
     }
 };
 
