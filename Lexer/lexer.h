@@ -61,7 +61,6 @@ public:
             noting = !noting;
         }
     }
-
     std::vector<Token> lex() {
         File.open(filePath);
         std::vector<Token> result;

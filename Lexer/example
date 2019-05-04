@@ -4,7 +4,7 @@ Hello_world
 }
 (*
 Hello_world
-
+*)
 const MAX = 1000;
 var i,j,n,s:longint;
 begin
