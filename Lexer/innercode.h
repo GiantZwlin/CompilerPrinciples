@@ -10,7 +10,7 @@
 
 class InnerCode {
 private:
-    std::map<std::string, int> codeTable;
+    static std::map<std::string, int> codeTable;
 
 public:
     InnerCode() {
@@ -57,7 +57,7 @@ public:
 
     }
 
-    int getInnerCode(const std::string &word) {
+    static int getInnerCode(const std::string &word) {
         if (codeTable[word] == 0) {
             for (char i : word) {
                 if (!isalpha(i)) {

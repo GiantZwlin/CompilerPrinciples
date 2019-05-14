@@ -1,0 +1,8 @@
+//
+// Created by memoria on 19-5-14.
+//
+
+#ifndef COMPILERPRINCIPLES_WRITE_H
+#define COMPILERPRINCIPLES_WRITE_H
+
+#endif //COMPILERPRINCIPLES_WRITE_H

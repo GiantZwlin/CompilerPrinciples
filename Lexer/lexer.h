@@ -10,16 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
-struct Token {
-    std::string word;
-    int code;
-
-    Token(std::string _word, int _code) {
-        word = std::move(_word);
-        code = _code;
-    }
-};
+#include "token.h"
 
 class Lexer {
 private:
@@ -52,15 +43,16 @@ public:
     }
 
     void deal_notes(int code) {
-        if (code == codeTable.getInnerCode("//")) {
+        if (code == InnerCode::getInnerCode("//")) {
             char c = getChar();
             while (c != '\n') {
                 c = getChar();
             }
-        } else if(codeTable.isNotes(code)){
+        } else if (codeTable.isNotes(code)) {
             noting = !noting;
         }
     }
+
     std::vector<Token> lex() {
         File.open(filePath);
         std::vector<Token> result;
@@ -78,7 +70,7 @@ public:
                     c = getChar();
                     cnt++;
                 }
-                int code = codeTable.getInnerCode(LexUtils::toUpper(tmp));
+                int code = InnerCode::getInnerCode(LexUtils::toUpper(tmp));
                 Token token = Token(tmp, code);
                 add_to_table(result, token);
             } else {
@@ -88,7 +80,7 @@ public:
                         tmp += c;
                         c = getChar();
                     }
-                    int code = codeTable.getInnerCode("UNSIGNED");
+                    int code = InnerCode::getInnerCode("UNSIGNED");
                     Token token = Token(tmp, code);
                     add_to_table(result, token);
                 } else {
@@ -97,7 +89,7 @@ public:
                         tmp += c;
                         c = getChar();
                         std::string t_tmp = tmp + c;
-                        int code = codeTable.getInnerCode(t_tmp);
+                        int code = InnerCode::getInnerCode(t_tmp);
                         deal_notes(code);
                         if (code != -1) {
                             tmp = t_tmp;
@@ -105,7 +97,7 @@ public:
                             add_to_table(result, token);
                             c = getChar();
                         } else {
-                            code = codeTable.getInnerCode(tmp);
+                            code = InnerCode::getInnerCode(tmp);
                             deal_notes(code);
                             Token token = Token(tmp, code);
                             add_to_table(result, token);

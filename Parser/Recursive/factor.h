@@ -1,0 +1,8 @@
+//
+// Created by memoria on 19-5-14.
+//
+
+#ifndef COMPILERPRINCIPLES_FACTOR_H
+#define COMPILERPRINCIPLES_FACTOR_H
+
+#endif //COMPILERPRINCIPLES_FACTOR_H
