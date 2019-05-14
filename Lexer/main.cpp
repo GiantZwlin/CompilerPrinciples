@@ -8,8 +8,8 @@
 
 using namespace std;
 
-int main() {
-    Lexer lexer("D:\\CLionProjects\\Compiler\\Lexer\\example");
+int main(int argc, char *argv[]) {
+    Lexer lexer(argv[1]);
     //Don't forget to change the path
     vector<Token> v = lexer.lex();
     for (auto &i : v) {
