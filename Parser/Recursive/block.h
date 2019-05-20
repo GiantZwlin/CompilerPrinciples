@@ -6,7 +6,8 @@
 #define COMPILERPRINCIPLES_BLOCK_H
 
 #include "../../Lexer/token.h"
-#include "headers.h"
+#include "consexpl.h"
+#include "varexpl.h"
 
 void block(Token &token) {
     consexpl(token);

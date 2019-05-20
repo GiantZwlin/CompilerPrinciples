@@ -7,8 +7,10 @@
 
 #include "../../Lexer/token.h"
 #include "../../Lexer/innercode.h"
-#include "headers.h"
 #include "syntac_error.h"
+#include "utils.h"
+#include "consdefi.h"
+#include "conssuff.h"
 
 void consexpl(Token &token) {
     if (token.code == InnerCode::getInnerCode("CONST")) {
