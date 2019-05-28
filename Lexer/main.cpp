@@ -5,15 +5,19 @@
 #include<iostream>
 #include "lexer.h"
 #include <vector>
+#include <regex>
 
 using namespace std;
 
-int main() {
-    Lexer lexer("D:\\CLionProjects\\Compiler\\Lexer\\example");
-    //Don't forget to change the path
+int main(int argc, char *args[]) {
+    Lexer lexer(args[1]);
     vector<Token> v = lexer.lex();
+    cout << "Lex " << args[1] << endl;
+    ofstream outfile;
+    outfile.open("lex.out", ios::out | ios::trunc );
     for (auto &i : v) {
-        cout << "< " << i.word << " , " << i.code << " >" << endl;
+        outfile << "< " << i.word << " , " << i.code << " >" << endl;
     }
+    outfile.close();
     return 0;
 }
